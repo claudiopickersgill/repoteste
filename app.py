@@ -10,7 +10,11 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.preprocessing import StandardScaler
 
 # Carregando a base de dados
-df = pd.read_csv('https://github.com/claudiopickersgill/repoteste/blob/main/data/Life-Expectancy-Data-Updated.csv')
+try:
+    df = pd.read_csv(
+        'https://raw.githubusercontent.com/claudiopickersgill/repoteste/main/data/Life-Expectancy-Data-Updated.csv')
+except Exception as e:
+    print(f"Erro ao ler o arquivo CSV: {e}")
 
 # Reorganizando o índice por ordem alfabética de países e anos
 df_novo = df.sort_values(by=['Country', 'Year']).reset_index(drop=True)
