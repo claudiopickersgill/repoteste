@@ -10,19 +10,25 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.preprocessing import StandardScaler
 
 # Carregando a base de dados
-df = pd.read_csv('data\Life-Expectancy-Data-Updated.csv')
+df = pd.read_csv('.data\Life-Expectancy-Data-Updated.csv')
 
 # Reorganizando o índice por ordem alfabética de países e anos
 df_novo = df.sort_values(by=['Country', 'Year']).reset_index(drop=True)
 
 # Criando uma nova variável de status socioeconômico a partir de duas colunas existentes
-df_novo['Economy_status'] = df_novo.apply(lambda row: 1 if row['Economy_status_Developed'] == 1 else 0, axis=1)
-df_novo = df_novo.drop(['Economy_status_Developing', 'Economy_status_Developed'], axis=1)
+df_novo['Economy_status'] = df_novo.apply(
+    lambda row: 1 if row['Economy_status_Developed'] == 1 else 0, axis=1)
+df_novo = df_novo.drop(
+    ['Economy_status_Developing', 'Economy_status_Developed'], axis=1)
 
 # Criando as funções para definir o conteúdo de cada página
+
+
 def main():
     st.title('Dashboard de Análise de Expectativa de Vida')
-    st.write('Navegue a partir do menu lateral para exibir as diferentes fases do projeto')
+    st.write(
+        'Navegue a partir do menu lateral para exibir as diferentes fases do projeto')
+
 
 def page1():
     st.title('1. Análise exploratória')
@@ -40,15 +46,20 @@ def page1():
     plt.xticks(rotation=90)
     plt.figure(figsize=(15, 8))
     st.pyplot(fig)
-    st.subheader('Barplot da expectativa de vida por região, dividida por status econômico')
-    media_expectativa_status = df_novo.groupby(['Region', 'Year', 'Economy_status'])['Life_expectancy'].mean()
+    st.subheader(
+        'Barplot da expectativa de vida por região, dividida por status econômico')
+    media_expectativa_status = df_novo.groupby(['Region', 'Year', 'Economy_status'])[
+        'Life_expectancy'].mean()
     media_expectativa_status = media_expectativa_status.reset_index()
     fig, ax = plt.subplots()
-    sns.barplot(x='Region', y='Life_expectancy', hue='Economy_status', data=media_expectativa_status)
-    plt.title('Média da expectativa de vida por região, divididas por status econômico')
+    sns.barplot(x='Region', y='Life_expectancy',
+                hue='Economy_status', data=media_expectativa_status)
+    plt.title(
+        'Média da expectativa de vida por região, divididas por status econômico')
     plt.xticks(rotation=90)
     plt.figure(figsize=(15, 8))
     st.pyplot(fig)
+
 
 def page2():
     st.title('2. Análise da qualidade de dados')
@@ -69,15 +80,18 @@ def page2():
     st.write(df_novo.head(15))
 
 # INSERIR O PLOT DA REGRESSÃO LINEAR
+
+
 def page3():
     st.title('3. Resultado do modelo de regressão linear')
     st.subheader('Variáveis independentes (features): Infant_deaths, Adult_mortality, Alcohol_consumption, Hepatitis_B, Measles, BMI, Polio, Diphtheria e Incidents_HIV. Variável dependente (target): Life_expectancy')
-    X = df_novo[['Infant_deaths', 'Adult_mortality', 'Alcohol_consumption', 
-    'Hepatitis_B', 'Measles', 'BMI', 'Polio', 'Diphtheria', 'Incidents_HIV', 
-    'Thinness_five_nine_years']]
+    X = df_novo[['Infant_deaths', 'Adult_mortality', 'Alcohol_consumption',
+                 'Hepatitis_B', 'Measles', 'BMI', 'Polio', 'Diphtheria', 'Incidents_HIV',
+                 'Thinness_five_nine_years']]
     y = df_novo['Life_expectancy']
     # Dividindo a base de dados em conjuntos de treinamento e teste
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42)
     # Criando o modelo de regressão linear
     model = LinearRegression()
     # Treinando o modelo
@@ -90,20 +104,23 @@ def page3():
     mae = mean_absolute_error(y_test, y_pred)
     # Exibir as métricas de avaliação em uma tabela
     metric_data = {'Métrica': ['Mean Squared Error (MSE)', 'Root Mean Squared Error (RMSE)', 'Mean Absolute Error (MAE)'],
-                'Valor': [mse, rmse, mae]}
+                   'Valor': [mse, rmse, mae]}
     metric_df = pd.DataFrame(metric_data)
     st.table(metric_df)
 
     st.subheader('Resultado da regressão linear')
     # Selecionando algumas observações para exibir no gráfico
     sample_size = 20
-    sample_indices = np.random.choice(range(len(y_test)), size=sample_size, replace=False)
+    sample_indices = np.random.choice(
+        range(len(y_test)), size=sample_size, replace=False)
 
     # Criando um gráfico de dispersão com as previsões e observações reais
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.scatterplot(x=y_test.iloc[sample_indices], y=y_pred[sample_indices], color='blue', label='Observações Reais vs. Previsões')
-    #sns.lineplot(x=float(y_test.iloc[sample_indices]), y=float(y_test.iloc[sample_indices]), color='red', label='Linha de Regressão')
-    sns.lineplot(x=y_test.iloc[sample_indices].values, y=y_test.iloc[sample_indices].values, color='red', label='Linha de Regressão')
+    sns.scatterplot(x=y_test.iloc[sample_indices], y=y_pred[sample_indices],
+                    color='blue', label='Observações Reais vs. Previsões')
+    # sns.lineplot(x=float(y_test.iloc[sample_indices]), y=float(y_test.iloc[sample_indices]), color='red', label='Linha de Regressão')
+    sns.lineplot(x=y_test.iloc[sample_indices].values,
+                 y=y_test.iloc[sample_indices].values, color='red', label='Linha de Regressão')
     ax.set_xlabel('Observações Reais')
     ax.set_ylabel('Previsões')
     ax.set_title('Exemplos da Regressão Linear')
