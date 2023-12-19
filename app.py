@@ -135,7 +135,7 @@ def page3():
 
 
 # Menu lateral
-menu = st.sidebar.selectbox('Selecione uma Página', [
+menu = st.sidebar.radio('Selecione uma Página', [
     'Principal', 'Análise exploratória', 'Análise de qualidade de dados', 'Resultado do modelo de regressão linear'])
 
 if menu == 'Principal':
