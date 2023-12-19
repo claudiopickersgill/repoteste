@@ -5,7 +5,7 @@ import seaborn as sns
 import numpy as np
 
 
-def page1():
+def a_exploratoria():
     # Carregando a base de dados
     try:
         df = pd.read_csv(

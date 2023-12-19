@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 
-def page2():
+def a_qual_dados():
     # Carregando a base de dados
     try:
         df = pd.read_csv(
