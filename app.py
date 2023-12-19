@@ -35,7 +35,7 @@ def main():
     st.write(
         'Navegue a partir do menu lateral para exibir as diferentes fases do projeto')
     # Menu lateral
-    menu = st.sidebar.radio('Selecione uma Página', [
+    menu = st.sidebar.selectbox('Selecione uma Página', [
         'Principal', 'Análise exploratória', 'Análise de qualidade de dados', 'Resultado do modelo de regressão linear'])
 
     if menu == 'Principal':
