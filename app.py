@@ -34,6 +34,18 @@ def main():
     st.title('Dashboard de Análise de Expectativa de Vida')
     st.write(
         'Navegue a partir do menu lateral para exibir as diferentes fases do projeto')
+    # Menu lateral
+    menu = st.sidebar.radio('Selecione uma Página', [
+        'Principal', 'Análise exploratória', 'Análise de qualidade de dados', 'Resultado do modelo de regressão linear'])
+
+    if menu == 'Principal':
+        main()
+    elif menu == 'Análise exploratória':
+        page1()
+    elif menu == 'Análise de qualidade de dados':
+        page2()
+    elif menu == 'Resultado do modelo de regressão linear':
+        page3()
 
 
 def page1():
@@ -132,17 +144,3 @@ def page3():
     ax.set_title('Exemplos da Regressão Linear')
     ax.legend()
     st.pyplot(fig)
-
-
-# Menu lateral
-menu = st.sidebar.radio('Selecione uma Página', [
-    'Principal', 'Análise exploratória', 'Análise de qualidade de dados', 'Resultado do modelo de regressão linear'])
-
-if menu == 'Principal':
-    main()
-elif menu == 'Análise exploratória':
-    page1()
-elif menu == 'Análise de qualidade de dados':
-    page2()
-elif menu == 'Resultado do modelo de regressão linear':
-    page3()
