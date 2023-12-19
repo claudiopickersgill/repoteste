@@ -29,16 +29,15 @@ df_novo = df_novo.drop(
 
 # Criando as funções para definir o conteúdo de cada página
 
+# Menu lateral
+menu = st.sidebar.selectbox('Selecione uma Página', [
+    'Principal', 'Análise exploratória', 'Análise de qualidade de dados', 'Resultado do modelo de regressão linear'])
+
 
 def main():
     st.title('Dashboard de Análise de Expectativa de Vida')
     st.write(
         'Navegue a partir do menu lateral para exibir as diferentes fases do projeto')
-
-
-# Menu lateral
-menu = st.sidebar.selectbox('Selecione uma Página', [
-    'Principal', 'Análise exploratória', 'Análise de qualidade de dados', 'Resultado do modelo de regressão linear'])
 
 
 def page1():
