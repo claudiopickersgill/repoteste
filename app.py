@@ -1,5 +1,4 @@
 import streamlit as st
-
 from Pages.principal import principal
 from Pages.a_exploratoria import a_exploratoria
 from Pages.a_qual_dados import a_qual_dados
