@@ -13,10 +13,10 @@ menu = st.sidebar.selectbox('Selecione uma Página', [
     'Principal', 'Análise exploratória', 'Análise de qualidade de dados', 'Resultado do modelo de regressão linear'])
 
 if menu == 'Principal':
-    principal()
+    principal.principal()
 elif menu == 'Análise exploratória':
-    a_exploratoria()
+    a_exploratoria.a_exploratoria()
 elif menu == 'Análise de qualidade de dados':
-    a_qual_dados()
+    a_qual_dados.a_qual_dados()
 elif menu == 'Resultado do modelo de regressão linear':
-    resultados()
+    resultados.resultados()
