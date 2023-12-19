@@ -9,6 +9,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.preprocessing import StandardScaler
 
+st.set_page_config(layout="wide")
+
 # Carregando a base de dados
 try:
     df = pd.read_csv(
